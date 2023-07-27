@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import seaborn as sns
 
 def createBoxPlot(dataSet, figureHeight, figureWidth, title, xAxisLabel, yAxisLabel, hasGrid, displayFormat, fileName=""):
@@ -14,10 +15,13 @@ def createBoxPlot(dataSet, figureHeight, figureWidth, title, xAxisLabel, yAxisLa
     else:
         plt.savefig(fileName + '.pdf') 
 
-def createGraphs(dataSet, confidenceLevel, figureHeight, figureWidth, hasGridlines, xAxisLabel, yAxisLabel, isLog, displayFormat, fileName=""):
-    print(dataSet) 
-    df = addIndexColumnToDF(dataSet)
-    ax = sns.lineplot(df, x="Index", y="r", errorbar=('ci', 95))
+def createGraphs(logsArray, confidenceLevel, figureHeight, figureWidth, hasGridlines, xAxisLabel, yAxisLabel, isLog, displayFormat, fileName=""):
+    indexedLogsArray = []
+    for log in logsArray:
+        df = addIndexColumnToDF(log)
+        indexedLogsArray.append(df)
+    dataSet = pd.concat(indexedLogsArray, ignore_index=True)
+    ax = sns.lineplot(dataSet, x="Index", y="r", errorbar=('ci', 95))
     ax.plot()
     plt.show()
     """
@@ -39,6 +43,4 @@ def addIndexColumnToDF(df):
     indexColumn = range(0, dataFrameSize)
     df['Index'] = indexColumn
     return df
-"""
-def averageDataFrames(dataSet):
-    """
+
