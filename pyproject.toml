@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "aneirinsdatagraphiq"
+name = "specialbarnacle"
 version = "0.0.1"
 authors = [
   { name="Aneirin Horvath", email="aneirinhorvath12@gmail.com" },
